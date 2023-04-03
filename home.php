@@ -122,48 +122,35 @@ Template Name: home
       </h2>
       <div class="carousel__inner">
 
-        <div class="carousel__item">
-          <div class="carousel__item-box">
-            <img class="carousel__item-img" src="<?php bloginfo('template_url'); ?>/assets/images/carousel/1.jpg" alt="">
-            <h4 class="carousel__item-title">INFINITI QX50 2016 г.</h4>
-            <p class="carousel__item-text">Экономия 4500 $</p>
+        <?php
+        global $post;
+
+        $myposts = get_posts([ 
+          'numberposts' => -1,
+        ]);
+
+        if( $myposts ){
+          foreach( $myposts as $post ){
+            setup_postdata( $post );
+        ?>
+          <!-- Вывод постов, функции цикла: the_title() и т.д. -->
+          <div class="carousel__item">
+            <div class="carousel__item-box">
+              <?php the_post_thumbnail(
+                array(380, 250),
+                array(
+                  'class' => 'carousel__item-img'
+
+                )
+
+              ); ?>
+              <h4 class="carousel__item-title"><?php the_title(); ?> </h4>
+              <p class="carousel__item-text"><?php the_content(); ?> </p>
+            </div>
           </div>
-        </div>
-        <div class="carousel__item">
-          <div class="carousel__item-box">
-            <img class="carousel__item-img" src="<?php bloginfo('template_url'); ?>/assets/images/carousel/2.jpg" alt="">
-            <h4 class="carousel__item-title">TESLA MODEL 3 2018 г.</h4>
-            <p class="carousel__item-text">Экономия 5500 $</p>
-          </div>
-        </div>
-        <div class="carousel__item">
-          <div class="carousel__item-box">
-            <img class="carousel__item-img" src="<?php bloginfo('template_url'); ?>/assets/images/carousel/3.jpg" alt="">
-            <h4 class="carousel__item-title">TESLA MODEL 3 2018 г.</h4>
-            <p class="carousel__item-text">Экономия 5500 $</p>
-          </div>
-        </div>
-        <div class="carousel__item">
-          <div class="carousel__item-box">
-            <img class="carousel__item-img" src="<?php bloginfo('template_url'); ?>/assets/images/carousel/1.jpg" alt="">
-            <h4 class="carousel__item-title">INFINITI QX50 2016 г.</h4>
-            <p class="carousel__item-text">Экономия 4500 $</p>
-          </div>
-        </div>
-        <div class="carousel__item">
-          <div class="carousel__item-box">
-            <img class="carousel__item-img" src="<?php bloginfo('template_url'); ?>/assets/images/carousel/2.jpg" alt="">
-            <h4 class="carousel__item-title">TESLA MODEL 3 2018 г.</h4>
-            <p class="carousel__item-text">Экономия 5500 $</p>
-          </div>
-        </div>
-        <div class="carousel__item">
-          <div class="carousel__item-box">
-            <img class="carousel__item-img" src="<?php bloginfo('template_url'); ?>/assets/images/carousel/3.jpg" alt="">
-            <h4 class="carousel__item-title">TESLA MODEL 3 2018 г.</h4>
-            <p class="carousel__item-text">Экономия 5500 $</p>
-          </div>
-        </div>
+
+        <?php } } wp_reset_postdata(); // Сбрасываем $post ?>
+
       </div>
     </div>
   </section>
@@ -202,9 +189,7 @@ Template Name: home
         </div>
         <form class="contacts__form">
           <h2 class="title contacts__title">Оставить заявку</h2>
-          <input class="contacts__input" type="text" placeholder="Как Вас зовут?">
-          <input class="contacts__input" type="tel" placeholder="Ваш номер телефона">
-          <button class="contacts__btn button" type="submit">Отправить заявку</button>
+          <?php echo do_shortcode('[contact-form-7 id="46" title="Контактная форма"]') ?>
         </form>
       </div>
     </div>
