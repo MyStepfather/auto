@@ -181,9 +181,9 @@ Template Name: home
             </li>
             <li class="contacts__item">
               <p class="contacts__item-title">Телефон</p>
-              <p class="contacts__item-text">
-                +38 (050) 555 66 77
-              </p>
+              <a href="tel:<?php the_field('phone-number'); ?>"><p class="contacts__item-text">
+              <?php the_field('phone'); ?>
+              </p></a>
             </li>
           </ul>
         </div>
